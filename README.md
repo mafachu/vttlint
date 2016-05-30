@@ -6,11 +6,11 @@ A linter for the WebVTT specification with opinonated hinting based on common cl
 
 `VTTlint` is currently in development. No functional code is available at this time.
 
-## Checks
+## Options
 
-`VTTlint` is currently in development. No checks are available at this time. See [Planned Checks](#planned-checks).
+`VTTlint` is currently in development. No checks are available at this time. See [Planned Options](#planned-options).
 
-## Planned Checks
+## Planned Options
 
 ### `mindur`
 *See Issue [#6](/../../issues/6).* Captions should have a maximum duration of `X` seconds. Default is `6`.
