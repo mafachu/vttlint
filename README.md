@@ -8,7 +8,7 @@ A linter for the WebVTT specification with opinonated hinting based on common cl
 
 ## Options
 
-`VTTlint` is currently in development. No checks are available at this time. See [Planned Options](#planned-options).
+`VTTlint` is currently in development. No options are available at this time. See [Planned Options](#planned-options).
 
 ## Planned Options
 
