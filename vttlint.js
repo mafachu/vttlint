@@ -5,13 +5,13 @@ var merge = require('merge'),
 
 var defaultOpts = {
     mindur      : 6,
-    maxdur      : 1.333,
-    maxlines    : 2,
-    rate        : 140,
-    sync        : true,
-    clear       : true,
-    maxwords    : 'auto'
+    maxdur      : 1.333
 };
+
+var checks = {
+    mindur      : require('./lib/mindur'),
+    maxdur      : require('./lib/maxdur')
+}
 
 module.exports = function (text, opts) {
 
@@ -30,9 +30,11 @@ module.exports = function (text, opts) {
     
     // Loop through VTT and do checks
     parsed.cues.forEach(function (cue) {
-
-        // TODO: Do checks
-    
+        Object.keys(checks).forEach(function (checkName) {
+            if (opts[checkName] !== false) {
+                suggestions = suggestions.concat(checks[checkName](cue, opts[checkName]));
+            }
+        });
     });
 
     // Done
