@@ -1,0 +1,37 @@
+{
+  "name": "vttlint",
+  "version": "0.1.0-alpha",
+  "description": "Linter for WebVTT",
+  "main": "vttlint.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mafachu/vttlint.git"
+  },
+  "bin": {
+    "vttlint": "bin/vttlint.js"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine-node test"
+  },
+  "keywords": [
+    "vtt",
+    "webvtt",
+    "lint",
+    "linter"
+  ],
+  "author": "Matt Scott",
+  "license": "MIT",
+  "devDependencies": {
+    "jasmine-node": "2.0.x"
+  },
+  "dependencies": {
+      "node-webvtt": "1.0.x",
+      "minimist": "1.2.x"
+  },
+  "engines": { 
+      "node" : "6.2.x"
+  }
+}

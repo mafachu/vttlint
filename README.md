@@ -4,11 +4,38 @@ A linter for the WebVTT specification with opinonated hinting based on common cl
 
 ## Use
 
-`VTTlint` is currently in development. No functional code is available at this time.
+1. Clone or download to local directory:
+
+ ```shell
+ $ git clone https://github.com/mafachu/vttlint.git
+ ```
+
+2. Install dependencies:
+
+ ```shell
+ $ npm install
+ ```
+
+## CLI
+
+`vttlint` currently only performs WebVTT validation. No other options are available at this time. See [Planned Options](#planned-options).
+
+You can use `vttlint` as a command-line tool by installing it globally:
+
+```shell
+$ npm install -g
+```
+
+`vttlint` takes a file and prints suggestions to stdout:
+
+```shell
+$ vttlint file.vtt
+file.vtt passed WebVTT validation. 14 cues parsed.
+```
 
 ## Options
 
-`VTTlint` is currently in development. No options are available at this time. See [Planned Options](#planned-options).
+`vttlint` currently only performs WebVTT validation. No other options are available at this time. See [Planned Options](#planned-options).
 
 ## Planned Options
 
