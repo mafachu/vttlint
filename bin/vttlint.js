@@ -5,12 +5,12 @@
 var minimist    = require('minimist'),
     path        = require('path'),
     fs          = require('fs'),
+    vttlint     = require('../vttlint'),
     webvtt      = require('node-webvtt');
 
 var exitCode    = 0,
     version,
-    file,
-    parsed;
+    file;
 
 // Get arguments
 var args        = minimist(process.argv.slice(2), {
@@ -18,16 +18,6 @@ var args        = minimist(process.argv.slice(2), {
     alias: {
         h: 'help',
         v: 'version'
-    },
-    'default': {
-        file        : '',
-        mindur      : 6,
-        maxdur      : 1.333,
-        maxlines    : 2,
-        rate        : 140,
-        sync        : true,
-        clear       : true,
-        maxwords    : 'auto'
     }
 });
 
@@ -36,7 +26,7 @@ if (args.help) {
     console.log('\nUsage: vttlint file.vtt [options]');
     console.log('\nOptions:');
     console.log('  -v, --version    print vttlint.js version');
-    console.log('\nDocumentation can be found at https://github.com/mafachu/vttlint/\n')
+    console.log('\nDocumentation can be found at https://github.com/mafachu/vttlint/\n');
     process.exit(0);
 }
 
@@ -58,26 +48,22 @@ if (args._.length < 1) {
 // Read file
 fs.readFile(file, 'utf8', function (readErr, data) {
     
+    var suggestions;
+    
     // Check for errors
     if (readErr) {
         return console.log('Error opening file ' + readErr.path + '.');
     }
     
-    // Parse VTT
-    try {
-        parsed = webvtt.parse(data);
-    } catch (parseErr) {
-        return console.log(parseErr.message);
-    }
-    
-    console.log(path.basename(file) + ' passed WebVTT validation. ' + parsed.cues.length + ' cues parsed.');
-    
-    // Loop through VTT and do checks
-    parsed.cues.forEach(function (cue) {
-        
-        // TODO: Do checks
-        
+    // Do checks
+    suggestions = vttlint(data, args);
+    suggestions.forEach(function (suggestion) {
+        exitCode += suggestions.length;
+        console.log(suggestion);
     });
+    if (!suggestions.length) {
+        console.log('No suggestions for ' + path.basename(file));
+    }
     
     // Done
     process.exit(exitCode);
