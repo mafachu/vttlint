@@ -4,14 +4,14 @@ var merge = require('merge'),
     webvtt = require('node-webvtt');
 
 var defaultOpts = {
-    mindur      : 6,
-    maxdur      : 1.333
+    mindur      : 1.333,
+    maxdur      : 6
 };
 
 var checks = {
     mindur      : require('./lib/mindur'),
     maxdur      : require('./lib/maxdur')
-}
+};
 
 module.exports = function (text, opts) {
 
