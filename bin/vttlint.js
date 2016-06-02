@@ -59,11 +59,13 @@ fs.readFile(file, 'utf8', function (readErr, data) {
     suggestions = vttlint(data, args);
     suggestions.forEach(function (suggestion) {
         exitCode += suggestions.length;
+        console.log();
         console.log(suggestion);
     });
     if (!suggestions.length) {
         console.log('No suggestions for ' + path.basename(file));
     }
+    console.log();
     
     // Done
     process.exit(exitCode);
