@@ -37,7 +37,7 @@ var vttlint = require('vttlint'),
 
 `vttlint` takes an optional second argument that allows you to disable or override certain checks.
 
-You can disable checking for minimum duration voice like this:
+You can disable checking for minimum duration like this:
 
 ```javascript
 var suggestions = vttlint(string, { mindur: false });
