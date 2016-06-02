@@ -1,6 +1,6 @@
 {
   "name": "vttlint",
-  "version": "0.1.0-alpha.1",
+  "version": "0.1.0-alpha.1.1",
   "description": "Linter for WebVTT",
   "main": "vttlint.js",
   "repository": {
@@ -28,6 +28,7 @@
     "jasmine-node": "2.0.x"
   },
   "dependencies": {
+      "merge": "1.2.x",
       "node-webvtt": "1.0.x",
       "minimist": "1.2.x"
   },
