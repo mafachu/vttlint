@@ -16,9 +16,34 @@ A linter for the WebVTT specification with opinonated hinting based on common cl
  $ npm install
  ```
 
-## CLI
+## API
 
-`vttlint` currently only performs WebVTT validation. No other options are available at this time. See [Planned Options](#planned-options).
+`vttlint` is a function that takes a string and returns an array of suggestions.
+
+```javascript
+var vttlint = require('vttlint'),
+    suggestions = vttlint(string);
+
+// suggestions:
+//
+// [{ suggestion: 'Captions should have a minimum duration of 1.333 seconds.',
+//    cue: 
+//     { identifier: '',
+//       start: 32.5,
+//       end: 33.5,
+//       text: '<v Neil deGrasse Tyson><i>Laughs</i>',
+//       styles: 'align:left size:50%' } }]
+```
+
+`vttlint` takes an optional second argument that allows you to disable or override certain checks.
+
+You can disable checking for minimum duration voice like this:
+
+```javascript
+var suggestions = vttlint(string, { mindur: false });
+```
+
+## CLI
 
 You can use `vttlint` as a command-line tool by installing it globally:
 
@@ -30,20 +55,37 @@ $ npm install -g
 
 ```shell
 $ vttlint file.vtt
-file.vtt passed WebVTT validation. 14 cues parsed.
+
+{ suggestion: 'Captions should have a minimum duration of 1.333 seconds.',
+  cue: 
+   { identifier: '',
+     start: 32.5,
+     end: 33.5,
+     text: '<v Neil deGrasse Tyson><i>Laughs</i>',
+     styles: 'align:left size:50%' } }
+```
+
+You can override specific checks like this:
+
+```
+$ vttlint file.vtt --mindur 1
+```
+
+Or exclude checks like this:
+
+```
+$ vttlint file.vtt --mindur false
 ```
 
 ## Options
 
-`vttlint` currently only performs WebVTT validation. No other options are available at this time. See [Planned Options](#planned-options).
-
-## Planned Options
-
 ### `mindur`
-*See Issue [#6](/../../issues/6).* Captions should have a maximum duration of `X` seconds. Default is `6`.
+Captions should have a maximum duration of `X` seconds. Default is `6`.
 
 ### `maxdur`
-*See Issue [#7](/../../issues/7).* Captions should have a minimum duration of `X` seconds. Default is `1.333`.
+Captions should have a minimum duration of `X` seconds. Default is `1.333`.
+
+## Planned Options
 
 ### `maxlines`
 *See Issue [#8](/../../issues/8).* It is preferred that there are no more than `X` lines per caption. Default is `2`.
