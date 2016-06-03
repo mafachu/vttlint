@@ -80,10 +80,10 @@ $ vttlint file.vtt --mindur false
 ## Options
 
 ### `mindur`
-Captions should have a maximum duration of `X` seconds. Default is `6`.
+Captions should have a minimum duration of `X` seconds. Default is `1.333`.
 
 ### `maxdur`
-Captions should have a minimum duration of `X` seconds. Default is `1.333`.
+Captions should have a maximum duration of `X` seconds. Default is `6`.
 
 ## Planned Options
 
