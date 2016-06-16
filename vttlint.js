@@ -10,6 +10,7 @@ const checks = {
 module.exports = function (text, opts) {
 
     text = text || '';
+    opts = opts || {};
 
     let parsed;
     let suggestions = [];
