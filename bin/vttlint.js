@@ -16,9 +16,13 @@ const args      = minimist(process.argv.slice(2), {
 
 // --help
 if (args.help) {
-    console.log('\nUsage: vttlint file.vtt [options]');
-    console.log('\nOptions:');
+    console.log('Usage: vttlint file.vtt [options]\n');
+    console.log('Options:');
     console.log('  -v, --version    print vttlint.js version');
+    console.log(
+        '  --mindur=num     set minimum caption duration (false to disable)');
+    console.log(
+        '  --maxdur=num     set maximum caption duration (false to disable)');
     console.log(
         '\nDocumentation can be found at https://github.com/mafachu/vttlint/\n'
     );
