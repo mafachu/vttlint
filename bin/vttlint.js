@@ -4,9 +4,6 @@
 
 const minimist  = require('minimist');
 const path      = require('path');
-const vttlint   = require('../vttlint');
-
-let version;
 
 // Get arguments
 const args      = minimist(process.argv.slice(2), {
@@ -30,7 +27,7 @@ if (args.help) {
 
 // --version
 if (args.version) {
-    version = require('../package.json').version;
+    const version = require('../package.json').version;
     console.log(version);
     process.exit(0);
 }
@@ -44,6 +41,7 @@ if (args._.length < 1) {
 const file = args._[0];
 
 // Do checks
+const vttlint = require('../vttlint');
 const suggestions = vttlint(file, args);
 suggestions.forEach(function suggestionDump (suggestion) {
     console.log();
