@@ -6,7 +6,6 @@ const minimist  = require('minimist');
 const path      = require('path');
 const vttlint   = require('../vttlint');
 
-let exitCode    = 0;
 let version;
 
 // Get arguments
@@ -38,8 +37,8 @@ if (args.version) {
 
 // Normalize filename
 if (args._.length < 1) {
-    console.log('You did not provide any files to check.');
-    process.exit(1);
+    const msg = 'You did not provide any files to check.';
+    throw msg;
 }
 
 const file = args._[0];
@@ -47,7 +46,6 @@ const file = args._[0];
 // Do checks
 const suggestions = vttlint(file, args);
 suggestions.forEach(function suggestionDump (suggestion) {
-    exitCode += suggestions.length;
     console.log();
     console.log(suggestion);
 });
@@ -57,4 +55,4 @@ if (!suggestions.length) {
 console.log();
 
 // Done
-process.exit(exitCode);
+process.exit(0);
