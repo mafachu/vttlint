@@ -7,17 +7,29 @@ const checks = {
     maxdur: require('./lib/maxdur')
 };
 
-module.exports = function (text, opts) {
+module.exports = function (file, opts) {
 
-    text = text || '';
     opts = opts || {};
+
+    const path = require('path');
+    const fs = require('fs');
+
+    file = file.trim();
+    file = path.resolve(process.cwd(), file);
+
+    let contents = '';
+    try {
+        contents = fs.readFileSync(file, 'utf8');
+    } catch (e) {
+        throw 'Error opening file ' + file + '.';
+    }
 
     let parsed;
     let suggestions = [];
 
     // Parse VTT
     try {
-        parsed = webvtt.parse(text);
+        parsed = webvtt.parse(contents);
     } catch (parseErr) {
         return [{error: parseErr.message}];
     }

@@ -4,12 +4,10 @@
 
 const minimist  = require('minimist');
 const path      = require('path');
-const fs        = require('fs');
 const vttlint   = require('../vttlint');
 
 let exitCode    = 0;
 let version;
-let file;
 
 // Get arguments
 const args      = minimist(process.argv.slice(2), {
@@ -42,33 +40,21 @@ if (args.version) {
 if (args._.length < 1) {
     console.log('You did not provide any files to check.');
     process.exit(1);
-} else {
-    file = path.resolve(process.cwd(), args._[0].trim());
 }
 
-// Read file
-fs.readFile(file, 'utf8', function readFile (readErr, data) {
+const file = args._[0];
 
-    let suggestions;
-
-    // Check for errors
-    if (readErr) {
-        return console.log('Error opening file ' + readErr.path + '.');
-    }
-
-    // Do checks
-    suggestions = vttlint(data, args);
-    suggestions.forEach(function suggestionDump (suggestion) {
-        exitCode += suggestions.length;
-        console.log();
-        console.log(suggestion);
-    });
-    if (!suggestions.length) {
-        console.log('No suggestions for ' + path.basename(file));
-    }
+// Do checks
+const suggestions = vttlint(file, args);
+suggestions.forEach(function suggestionDump (suggestion) {
+    exitCode += suggestions.length;
     console.log();
-
-    // Done
-    process.exit(exitCode);
-
+    console.log(suggestion);
 });
+if (!suggestions.length) {
+    console.log('No suggestions for ' + path.basename(file));
+}
+console.log();
+
+// Done
+process.exit(exitCode);

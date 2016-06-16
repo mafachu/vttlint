@@ -41,11 +41,11 @@ console.log('\nRUNNING TESTS...');
 
 tests.forEach(function doTest (test) {
 
-    // Read file
-    const contents = fs.readFileSync((__dirname + '/' + test.file), 'utf8');
+    // Normalize filename
+    const file = __dirname + '/' + test.file;
 
     // Do test;
-    const suggestions = vttlint(contents);
+    const suggestions = vttlint(file);
 
     // Output results;
     console.log('\nTesting ' + test.file + '...');
