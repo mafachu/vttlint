@@ -1,12 +1,6 @@
 'use strict';
 
-const merge = require('merge');
 const webvtt = require('node-webvtt');
-
-const defaultOpts = {
-    mindur: 1.333,
-    maxdur: 6
-};
 
 const checks = {
     mindur: require('./lib/mindur'),
@@ -16,7 +10,6 @@ const checks = {
 module.exports = function (text, opts) {
 
     text = text || '';
-    opts = merge(defaultOpts, opts);
 
     let parsed;
     let suggestions = [];

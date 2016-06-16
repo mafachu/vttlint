@@ -29,7 +29,6 @@
         "jasmine-node": "2.0.x"
     },
     "dependencies": {
-        "merge": "1.2.x",
         "node-webvtt": "1.0.x",
         "minimist": "1.2.x"
     },
