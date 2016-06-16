@@ -2,18 +2,17 @@
 
 'use strict';
 
-var minimist    = require('minimist'),
-    path        = require('path'),
-    fs          = require('fs'),
-    vttlint     = require('../vttlint'),
-    webvtt      = require('node-webvtt');
+const minimist  = require('minimist');
+const path      = require('path');
+const fs        = require('fs');
+const vttlint   = require('../vttlint');
 
-var exitCode    = 0,
-    version,
-    file;
+let exitCode    = 0;
+let version;
+let file;
 
 // Get arguments
-var args        = minimist(process.argv.slice(2), {
+const args      = minimist(process.argv.slice(2), {
     boolean: ['sync', 'clear'],
     alias: {
         h: 'help',
@@ -26,7 +25,9 @@ if (args.help) {
     console.log('\nUsage: vttlint file.vtt [options]');
     console.log('\nOptions:');
     console.log('  -v, --version    print vttlint.js version');
-    console.log('\nDocumentation can be found at https://github.com/mafachu/vttlint/\n');
+    console.log(
+        '\nDocumentation can be found at https://github.com/mafachu/vttlint/\n'
+    );
     process.exit(0);
 }
 
@@ -46,18 +47,18 @@ if (args._.length < 1) {
 }
 
 // Read file
-fs.readFile(file, 'utf8', function (readErr, data) {
-    
-    var suggestions;
-    
+fs.readFile(file, 'utf8', function readFile (readErr, data) {
+
+    let suggestions;
+
     // Check for errors
     if (readErr) {
         return console.log('Error opening file ' + readErr.path + '.');
     }
-    
+
     // Do checks
     suggestions = vttlint(data, args);
-    suggestions.forEach(function (suggestion) {
+    suggestions.forEach(function suggestionDump (suggestion) {
         exitCode += suggestions.length;
         console.log();
         console.log(suggestion);
@@ -66,8 +67,8 @@ fs.readFile(file, 'utf8', function (readErr, data) {
         console.log('No suggestions for ' + path.basename(file));
     }
     console.log();
-    
+
     // Done
     process.exit(exitCode);
-    
+
 });

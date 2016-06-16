@@ -1,9 +1,9 @@
 'use strict';
 
-var fs      = require('fs'),
-    vttlint = require('../vttlint');
+const fs      = require('fs');
+const vttlint = require('../vttlint');
 
-var tests = [{
+const tests = [{
         file: 'test1.vtt',
         expected: [{
             error: 'No blank line after signature'
@@ -11,7 +11,8 @@ var tests = [{
     }, {
         file: 'test2.vtt',
         expected: [{
-            suggestion: 'Captions should have a minimum duration of 1.333 seconds.',
+            suggestion:
+                'Captions should have a minimum duration of 1.333 seconds.',
             cue: {
                 identifier: '',
                 start: 32.5,
@@ -25,7 +26,9 @@ var tests = [{
                 identifier: '',
                 start: 35.5,
                 end: 41.501,
-                text: '<v Roger Bingham>You know I’m so excited my glasses are falling off here.',
+                text:
+                    '<v Roger Bingham>You know I’m so excited ' +
+                    'my glasses are falling off here.',
                 styles: ''
             }
         }]
@@ -36,15 +39,13 @@ var tests = [{
 
 console.log('\nRUNNING TESTS...');
 
-tests.forEach(function (test) {
-    
-    var contents, suggestions;
-    
+tests.forEach(function doTest (test) {
+
     // Read file
-    contents = fs.readFileSync((__dirname + '/' + test.file), 'utf8');
-    
+    const contents = fs.readFileSync((__dirname + '/' + test.file), 'utf8');
+
     // Do test;
-    suggestions = vttlint(contents);
+    const suggestions = vttlint(contents);
 
     // Output results;
     console.log('\nTesting ' + test.file + '...');

@@ -1,16 +1,16 @@
 'use strict';
 
-var merge = require('merge'),
-    webvtt = require('node-webvtt');
+const merge = require('merge');
+const webvtt = require('node-webvtt');
 
-var defaultOpts = {
-    mindur      : 1.333,
-    maxdur      : 6
+const defaultOpts = {
+    mindur: 1.333,
+    maxdur: 6
 };
 
-var checks = {
-    mindur      : require('./lib/mindur'),
-    maxdur      : require('./lib/maxdur')
+const checks = {
+    mindur: require('./lib/mindur'),
+    maxdur: require('./lib/maxdur')
 };
 
 module.exports = function (text, opts) {
@@ -18,21 +18,23 @@ module.exports = function (text, opts) {
     text = text || '';
     opts = merge(defaultOpts, opts);
 
-    var parsed,
-        suggestions = [];
-    
+    let parsed;
+    let suggestions = [];
+
     // Parse VTT
     try {
         parsed = webvtt.parse(text);
     } catch (parseErr) {
         return [{error: parseErr.message}];
     }
-    
+
     // Loop through VTT and do checks
-    parsed.cues.forEach(function (cue) {
-        Object.keys(checks).forEach(function (checkName) {
+    parsed.cues.forEach(function cueLoop (cue) {
+        Object.keys(checks).forEach(function getSuggestions (checkName) {
             if (opts[checkName] !== false) {
-                suggestions = suggestions.concat(checks[checkName](cue, opts[checkName]));
+                suggestions = suggestions.concat(
+                    checks[checkName](cue, opts[checkName])
+                );
             }
         });
     });
