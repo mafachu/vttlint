@@ -1,6 +1,6 @@
 # VTTlint
 
-A linter for the WebVTT specification with opinonated hinting based on common closed captioning standards.
+A linter for the WebVTT specification with hinting based on common closed captioning standards.
 
 ## Use
 
@@ -18,21 +18,22 @@ A linter for the WebVTT specification with opinonated hinting based on common cl
 
 ## API
 
-`vttlint` is a function that takes a string and returns an array of suggestions.
+`vttlint` is a function that takes a string and returns an array of errors.
 
 ```javascript
 var vttlint = require('vttlint'),
-    suggestions = vttlint(string);
+    errors = vttlint(string);
 
-// suggestions:
+// errors:
 //
-// [{ suggestion: 'Captions should have a minimum duration of 1.333 seconds.',
+// [{ reason: 'Captions should have a minimum duration of 1.333 seconds.',
 //    cue: 
 //     { identifier: '',
 //       start: 32.5,
 //       end: 33.5,
 //       text: '<v Neil deGrasse Tyson><i>Laughs</i>',
-//       styles: 'align:left size:50%' } }]
+//       styles: 'align:left size:50%',
+//       index: 12 } }]
 ```
 
 `vttlint` takes an optional second argument that allows you to disable or override certain checks.
@@ -40,7 +41,7 @@ var vttlint = require('vttlint'),
 You can disable checking for minimum duration like this:
 
 ```javascript
-var suggestions = vttlint(string, { mindur: false });
+var errors = vttlint(string, { mindur: false });
 ```
 
 ## CLI
@@ -51,18 +52,13 @@ You can use `vttlint` as a command-line tool by installing it globally:
 $ npm install -g
 ```
 
-`vttlint` takes a file and prints suggestions to stdout:
+`vttlint` takes a file and prints errors to stdout:
 
 ```shell
 $ vttlint file.vtt
+cue 12: Captions should have a minimum duration of 1.333 seconds.
 
-{ suggestion: 'Captions should have a minimum duration of 1.333 seconds.',
-  cue: 
-   { identifier: '',
-     start: 32.5,
-     end: 33.5,
-     text: '<v Neil deGrasse Tyson><i>Laughs</i>',
-     styles: 'align:left size:50%' } }
+1 error
 ```
 
 You can override specific checks like this:
