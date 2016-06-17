@@ -3,7 +3,6 @@
 'use strict';
 
 const minimist  = require('minimist');
-const path      = require('path');
 
 // Get arguments
 const args      = minimist(process.argv.slice(2), {
@@ -47,12 +46,17 @@ const file = args._[0];
 // Do checks
 const vttlint = require('../vttlint');
 const errors = vttlint(file, args);
-errors.forEach(function errDump (error) {
-    console.log();
-    console.log(error);
+
+// Reporter
+const len = errors.length;
+let str = '';
+errors.forEach((err) => {
+    const index = typeof(err.cue) === 'undefined' ? '?' : err.cue.index;
+    str += 'cue ' + index + ': ' + err.reason + '\n';
 });
-if (!errors.length) {
-    console.log('No errors for ' + path.basename(file));
+if (str) {
+    console.log(str + '\n' + len + ' error' +
+        ((len === 1) ? '' : 's'));
 }
 console.log();
 

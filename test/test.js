@@ -17,7 +17,8 @@ const tests = [{
                 start: 32.5,
                 end: 33.5,
                 text: '<v Neil deGrasse Tyson><i>Laughs</i>',
-                styles: 'align:left size:50%'
+                styles: 'align:left size:50%',
+                index: 11
             }
         }, {
             reason: 'Captions should have a maximum duration of 6 seconds.',
@@ -28,7 +29,8 @@ const tests = [{
                 text:
                     '<v Roger Bingham>You know I’m so excited ' +
                     'my glasses are falling off here.',
-                styles: ''
+                styles: '',
+                index: 12
             }
         }]
     }, {

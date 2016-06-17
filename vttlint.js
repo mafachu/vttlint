@@ -35,7 +35,8 @@ module.exports = function (file, opts) {
     }
 
     // Loop through VTT and do checks
-    parsed.cues.forEach(function cueLoop (cue) {
+    parsed.cues.forEach(function cueLoop (cue, i) {
+        cue.index = i;
         Object.keys(checks).forEach(function getSuggestions (checkName) {
             if (opts[checkName] !== false) {
                 errors = errors.concat(
