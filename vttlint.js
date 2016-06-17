@@ -25,20 +25,20 @@ module.exports = function (file, opts) {
     }
 
     let parsed;
-    let suggestions = [];
+    let errors = [];
 
     // Parse VTT
     try {
         parsed = webvtt.parse(contents);
     } catch (parseErr) {
-        return [{error: parseErr.message}];
+        return [{reason: parseErr.message}];
     }
 
     // Loop through VTT and do checks
     parsed.cues.forEach(function cueLoop (cue) {
         Object.keys(checks).forEach(function getSuggestions (checkName) {
             if (opts[checkName] !== false) {
-                suggestions = suggestions.concat(
+                errors = errors.concat(
                     checks[checkName](cue, opts[checkName])
                 );
             }
@@ -46,6 +46,6 @@ module.exports = function (file, opts) {
     });
 
     // Done
-    return suggestions; // TODO: Dedup/Sort?
+    return errors; // TODO: Dedup/Sort?
 
 };

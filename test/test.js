@@ -1,17 +1,16 @@
 'use strict';
 
-const fs      = require('fs');
 const vttlint = require('../vttlint');
 
 const tests = [{
         file: 'test1.vtt',
         expected: [{
-            error: 'No blank line after signature'
+            reason: 'No blank line after signature'
         }]
     }, {
         file: 'test2.vtt',
         expected: [{
-            suggestion:
+            reason:
                 'Captions should have a minimum duration of 1.333 seconds.',
             cue: {
                 identifier: '',
@@ -21,7 +20,7 @@ const tests = [{
                 styles: 'align:left size:50%'
             }
         }, {
-            suggestion: 'Captions should have a maximum duration of 6 seconds.',
+            reason: 'Captions should have a maximum duration of 6 seconds.',
             cue: {
                 identifier: '',
                 start: 35.5,
@@ -45,7 +44,7 @@ tests.forEach(function doTest (test) {
     const file = __dirname + '/' + test.file;
 
     // Do test;
-    const suggestions = vttlint(file);
+    const errors = vttlint(file);
 
     // Output results;
     console.log('\nTesting ' + test.file + '...');
@@ -53,7 +52,7 @@ tests.forEach(function doTest (test) {
     console.log('Expected: ');
     console.log(test.expected);
     console.log('Actual:');
-    console.log(suggestions);
+    console.log(errors);
 
 });
 

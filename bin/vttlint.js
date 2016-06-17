@@ -46,13 +46,13 @@ const file = args._[0];
 
 // Do checks
 const vttlint = require('../vttlint');
-const suggestions = vttlint(file, args);
-suggestions.forEach(function suggestionDump (suggestion) {
+const errors = vttlint(file, args);
+errors.forEach(function errDump (error) {
     console.log();
-    console.log(suggestion);
+    console.log(error);
 });
-if (!suggestions.length) {
-    console.log('No suggestions for ' + path.basename(file));
+if (!errors.length) {
+    console.log('No errors for ' + path.basename(file));
 }
 console.log();
 
