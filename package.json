@@ -1,6 +1,6 @@
 {
     "name": "vttlint",
-    "version": "0.1.0-alpha.1.1",
+    "version": "0.1.0-alpha.2",
     "description": "Linter for WebVTT",
     "main": "vttlint.js",
     "repository": {
