@@ -18,11 +18,11 @@ A linter for the WebVTT specification with hinting based on common closed captio
 
 ## API
 
-`vttlint` is a function that takes a string and returns an array of errors.
+`vttlint` is a function that takes a file and returns an array of errors.
 
 ```javascript
 var vttlint = require('vttlint'),
-    errors = vttlint(string);
+    errors = vttlint('file.vtt');
 
 // errors:
 //
@@ -41,7 +41,7 @@ var vttlint = require('vttlint'),
 You can disable checking for minimum duration like this:
 
 ```javascript
-var errors = vttlint(string, { mindur: false });
+var errors = vttlint('file.vtt', { mindur: false });
 ```
 
 ## CLI
