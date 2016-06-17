@@ -49,10 +49,15 @@ tests.forEach(function doTest (test) {
     // Output results;
     console.log('\nTesting ' + test.file + '...');
     console.log('====================');
-    console.log('Expected: ');
-    console.log(test.expected);
-    console.log('Actual:');
-    console.log(errors);
+    if (JSON.stringify(test.expected) === JSON.stringify(errors)) {
+        console.log('Passed!');
+    } else {
+        console.log('Problem(s) detected!');
+        console.log('Expected: ');
+        console.log(test.expected);
+        console.log('Actual:');
+        console.log(errors);
+    }
 
 });
 
